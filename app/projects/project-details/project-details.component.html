@@ -1,0 +1,46 @@
+<div class="container">
+  <img [src]="project?.imageUrl" [alt]="project?.name" class="project-image">
+
+  <div class="row">
+    <div class="col-md-11">
+      <h2>{{project?.name | uppercase}} </h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div><strong>Date:</strong> {{project?.date | date: 'shortDate'}}</div>
+      <div><strong>Time:</strong> {{project?.time}}</div>
+      <div><strong>Project Cost:</strong> {{project?.price | currency:'USD':true}}</div>
+    </div>
+    <div class="col-md-6">
+      <address>
+        <strong>Address:</strong><br /> {{project?.location?.address}}
+        <br /> {{project?.location?.city}}, {{project?.location?.country}}
+      </address>
+    </div>
+  </div>
+  <hr>
+  <div class="row" style="margin-bottom:10px">
+    <div class="col-md-2">
+      <h3 style="margin:0"></h3>
+    </div>
+    <div class="col-md-7">
+      <div class="btn-group btn-group-sm" style="margin-right:20px ; margin-left:20px">
+        <button class="btn btn-primary" [class.active]="sortBy==='name'" (click)="sortBy='name'">By Name</button>
+        <button class="btn btn-primary" [class.active]="sortBy==='votes'" (click)="sortBy='votes'">By Votes</button>
+      </div>
+      <div class="btn-group btn-group-sm">
+        <button class="btn btn-primary" [class.active]="filterBy==='all'" (click)="filterBy='all'">ALL</button>
+        <button class="btn btn-primary" [class.active]="filterBy==='beginner'" (click)="filterBy='beginner'">Beginner</button>
+        <button class="btn btn-primary" [class.active]="filterBy==='intermediate'" (click)="filterBy='intermediate'">Intermediate</button>
+        <button class="btn btn-primary" [class.active]="filterBy==='advanced'" (click)="filterBy='advanced'">Advanced</button>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <a (click)="addSession()">Add Session </a>
+    </div>
+  </div>
+  <session-list [sortBy]="sortBy" [filterBy]="filterBy" *ngIf="!addMode" [sessions]="project?.sessions"></session-list>
+  <create-session *ngIf="addMode" (saveNewSession)="saveNewSession($event)"></create-session>
+</div>

@@ -1,0 +1,62 @@
+<h1>New Project</h1>
+<hr>
+<div class="col-md-6">
+    <form #newProjectForm="ngForm" (ngSubmit)="saveProject(newProjectForm.value)" autocomplete="off" novalidate>
+        <div class="form-group" [ngClass]="{'error': newProjectForm.controls.name?.invalid && newProjectForm.controls.name?.touched}">
+            <label for="eventName">Project Name:</label>
+            <em *ngIf="newProjectForm.controls.name?.invalid && (newProjectForm.controls.name?.touched)">Required</em>
+            <input (ngModel)="name" name="name" required id="name" type="text" class="form-control" placeholder="Name of your project..."
+            />
+        </div>
+        <div class="form-group" [ngClass]="{'error': newProjectForm.controls.date?.invalid && newProjectForm.controls.date?.touched}">
+            <label for="eventDate">Project Start Date:</label>
+            <em *ngIf="newProjectForm.controls.date?.invalid && (newProjectForm.controls.date?.touched)">Required</em>
+            <input (ngModel)="date" name="date" required id="eventDate" type="text" class="form-control" placeholder="format (mm/dd/yyyy)..."
+            />
+        </div>
+        <div class="form-group" [ngClass]="{'error': newProjectForm.controls.time?.invalid && newProjectForm.controls.time?.touched}">
+            <label for="eventTime">Project Start Time:</label>
+            <em *ngIf="newProjectForm.controls.time?.invalid && (newProjectForm.controls.time?.touched)">Required</em>
+            <input (ngModel)="time" name="time" required id="eventTime" type="text" class="form-control" placeholder="start and end time..."
+            />
+        </div>
+        <div class="form-group" [ngClass]="{'error': newProjectForm.controls.price?.invalid && newProjectForm.controls.price?.touched}">
+            <label for="eventPrice">Project Cost:</label>
+            <em *ngIf="newProjectForm.controls.price?.invalid && (newProjectForm.controls.price?.touched)">Required</em>
+            <input (ngModel)="price" name="price" required id="eventPrice" type="text" type="number" class="form-control" placeholder="project price..."
+            />
+        </div>
+        <div ngModelGroup="location">
+            <div class="form-group">
+                <label for="address">Project Location:</label>
+                <input (ngModel)="address" name="address" id="address" type="text" class="form-control" placeholder="Address of project..."
+                />
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input (ngModel)="city" name="city" id="city" type="text" class="form-control" placeholder="City..." />
+                </div>
+                <div class="col-md-6">
+                    <input (ngModel)="country" name="country" id="country" type="text" class="form-control" placeholder="Country..." />
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="onlineUrl">Project Document Url:</label>
+            <input (ngModel)="onlineUrl" name="onlineUrl" id="onlineUrl" type="text" class="form-control" placeholder="Online Url..."
+            />
+        </div>
+        <div class="form-group" [ngClass]="{'error': newProjectForm.controls.imageUrl?.invalid && newProjectForm.controls.imageUrl?.touched}">
+            <label for="imageUrl">Project Logo:</label>
+            <em *ngIf="newProjectForm.controls.imageUrl?.invalid && newProjectForm.controls.imageUrl?.touched && newProjectForm.controls.imageUrl?.errors.required">Required</em>
+            <em *ngIf="newProjectForm.controls.imageUrl?.invalid && newProjectForm.controls.imageUrl?.touched  && newProjectForm.controls.imageUrl?.errors.pattern">Must be a png or jpg url</em>
+            <input (ngModel)="imageUrl" name="imageUrl" required pattern=".*\/.*.(png|jpg)" id="imageUrl" type="text" class="form-control"
+                placeholder="url of logo..." />
+            <img [src]="newProjectForm.controls.imageUrl.value" *ngIf="newProjectForm.controls.imageUrl?.valid"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" [disabled]="newProjectForm.invalid" class="btn btn-default" (click)="cancel()">Cancel</button>
+    </form>
+</div>
